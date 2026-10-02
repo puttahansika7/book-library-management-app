@@ -40,145 +40,219 @@ class HomeScreen extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
 
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+
+          // Screen width
+          double width = constraints.maxWidth;
+
+          // Number of columns
+          int columns;
+
+          if (width < 600) {
+            columns = 1;          // Mobile
+          } else if (width < 1000) {
+            columns = 2;          // Tablet
+          } else {
+            columns = 3;          // Desktop
+          }
+
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  const Text(
+                    'Welcome to My Library 📚',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  GridView.count(
+                    crossAxisCount: columns,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+
+                    children: const [
+                      BookCard(
+                        title: 'The Alchemist',
+                        author: 'Paulo Coelho',
+                        category: 'Fiction',
+                        year: '1988',
+                      ),
+
+                      BookCard(
+                        title: 'Atomic Habits',
+                        author: 'James Clear',
+                        category: 'Self Help',
+                        year: '2018',
+                      ),
+
+                      BookCard(
+                        title: 'Rich Dad Poor Dad',
+                        author: 'Robert Kiyosaki',
+                        category: 'Finance',
+                        year: '1997',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class BookCard extends StatelessWidget {
+  final String title;
+  final String author;
+  final String category;
+  final String year;
+
+  const BookCard({
+    super.key,
+    required this.title,
+    required this.author,
+    required this.category,
+    required this.year,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 8,
+            spreadRadius: 2,
+            color: Colors.grey.shade300,
+          ),
+        ],
+      ),
+
+      child: Column(
+        children: [
+
+          Stack(
             children: [
 
-              // Heading
-              const Text(
-                'Welcome to My Library 📚',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1543002588-bfa74002ed7e',
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const Positioned(
+                top: 10,
+                right: 10,
 
-              // Book Container
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 8,
-                      spreadRadius: 2,
-                      color: Colors.grey.shade300,
-                    ),
-                  ],
-                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
 
-                child: Column(
-                  children: [
-
-                    // Stack
-                    Stack(
-                      children: [
-
-                        // Book Image
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            'https://images.unsplash.com/photo-1543002588-bfa74002ed7e',
-                            height: 220,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-
-                        // Icon on Image
-                        const Positioned(
-                          top: 10,
-                          right: 10,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    // Book Name
-                    const Text(
-                      'The Alchemist',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    // Author
-                    const Text(
-                      'Paulo Coelho',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    // Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.deepPurple.shade50,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Text('Fiction'),
-                        ),
-
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.deepPurple.shade50,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Text('1988'),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // Button
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.menu_book),
-                        label: const Text('View Details'),
-                      ),
-                    ),
-                  ],
+                  child: Icon(
+                    Icons.favorite_border,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ],
           ),
-        ),
+
+          const SizedBox(height: 12),
+
+          Text(
+            title,
+            textAlign: TextAlign.center,
+
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 6),
+
+          Text(
+            author,
+
+            style: const TextStyle(
+              fontSize: 15,
+              color: Colors.grey,
+            ),
+          ),
+
+          const SizedBox(height: 12),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+            children: [
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
+
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple.shade50,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+
+                child: Text(category),
+              ),
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
+
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple.shade50,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+
+                child: Text(year),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 15),
+
+          SizedBox(
+            width: double.infinity,
+
+            child: ElevatedButton.icon(
+              onPressed: () {},
+
+              icon: const Icon(Icons.menu_book),
+
+              label: const Text('View Details'),
+            ),
+          ),
+        ],
       ),
     );
   }
