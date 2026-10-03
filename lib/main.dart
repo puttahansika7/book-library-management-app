@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'experiments/exp4_navigation.dart';
 void main() {
   runApp(const BookLibraryApp());
 }
@@ -18,7 +18,7 @@ class BookLibraryApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+    home: const HomeScreen(),  
     );
   }
 }
@@ -78,6 +78,7 @@ class HomeScreen extends StatelessWidget {
                     crossAxisCount: columns,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
+                    mainAxisExtent: 500,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
 
@@ -130,9 +131,9 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-
+      return Container(
+  height: 500,
+  padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -245,12 +246,21 @@ class BookCard extends StatelessWidget {
             width: double.infinity,
 
             child: ElevatedButton.icon(
-              onPressed: () {},
-
-              icon: const Icon(Icons.menu_book),
-
-              label: const Text('View Details'),
-            ),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BookDetailsScreen(
+  title: title,
+  author: author,
+  year: year,
+),
+      ),
+    );
+  },
+  icon: const Icon(Icons.menu_book),
+  label: const Text('View Details'),
+),
           ),
         ],
       ),
