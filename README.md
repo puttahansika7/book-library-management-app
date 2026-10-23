@@ -1,17 +1,57 @@
-# book_library_app
 
-A new Flutter project.
+# Book Library Management System
+
+A responsive Flutter application to manage and organize books with a simple, user-friendly interface.
+
+## Features
+
+- View the list of books
+- Search for books
+- Add new books
+- Update book details
+- Delete books
+- View detailed book information
+- Responsive user interface
+- Navigation between screens
+
+## Technologies Used
+
+- Flutter
+- Dart
+- Visual Studio Code
+- Git and GitHub
+
+## Screenshots
+
+### Home Screen
+
+![Book Library Management System Home Screen](screenshots/home_screen.png)
+
+## Project Structure
+
+```text
+lib/
+├── main.dart
+├── dart_basics.dart
+└── experiments/
+    └── exp4_navigation.dart
+
+screenshots/
+└── home_screen.png
+```
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Install Flutter and Dart.
+2. Clone this repository.
+3. Open the project folder in Visual Studio Code.
+4. Run the following commands:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+flutter pub get
+flutter run -d chrome
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Author
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Book Library Management System — Flutter Lab Project
